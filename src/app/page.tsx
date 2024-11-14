@@ -16,6 +16,10 @@ const Page = () => {
         avatar="https://lastfm.freetls.fastly.net/i/u/ar0/8e57ec747008d26ccb20285dd1e48825.jpg"
         roles={["Greatest Trapper", "Trap Creator", "Most Beautiful Man"]}
       />
+      <Person
+        name="Usuário"
+        roles={["Z", "Y", "X"]}
+      />
     </div>
   );
 };
