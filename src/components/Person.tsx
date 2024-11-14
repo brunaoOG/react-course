@@ -14,7 +14,7 @@ export const Person = ({
   roles,
 }: Propz) => {
   return (
-    <div className="m-5 p-4 w-1/4 flex flex-col gap-5 items-center bg-black/40 rounded-lg">
+    <div className="m-5 p-4 w-full flex flex-col gap-5 items-center bg-black/40 rounded-lg">
       <img src={avatar} alt="Father" className="rounded-full w-60 h-60" />
       <h1>{name}</h1>
       <ul className="grid grid-cols-3 gap-1">
