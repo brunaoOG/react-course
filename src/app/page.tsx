@@ -1,41 +1,23 @@
-import { rappersList } from "../data/rappersList";
-import { SvgTrophy, SvgRanking } from "../components/Svg";
-import { Rapper } from "../types/Rappers";
+import { Greeting } from "../components/Greetings";
 
 const Page = () => {
-  const top3Rappers = rappersList.filter((rapper) => {
-    return Number(rapper.rank) < 4;
-  });
+  let hour = `${new Date().getHours()}:${
+    new Date().getMinutes() < 10
+      ? "0" + new Date().getMinutes()
+      : new Date().getMinutes()
+  }`;
 
-  const newArray = rappersList.filter(
-    (rapper) => rapper.name.split(" ").length > 1
-  );
-
-  const list = (array: Rapper[]) => {
-    const result = array.map((rapper) => {
-      return (
-        <li key={rapper.id} className="flex">
-          <p className="p-4 rounded-s-md bg-black/40">{rapper.name}</p>
-          <div className="flex-1 flex justify-end gap-2 p-4  rounded-e-md bg-black/40 ">
-            {Number(rapper.rank) < 4 && <SvgTrophy />}
-            <p className="border border-white rounded-full text-[12px]  w-5 h-5 text-center">
-              {rapper.rank}
-            </p>
-          </div>
-        </li>
-      );
-    });
-
-    return result;
-  };
+  let h = Number(new Date().getHours());
 
   return (
-    <div className="p-5 w-fit">
-      <div className=" w-full flex items-center gap-3 text-2xl mb-2">
-        <h1>Rappers Rank</h1>
-        <SvgRanking />
+    <div className="flex flex-col justify-center items-center h-screen w-screen bg-gradient-to-bl from-blue-700 to-blue-400">
+      <h1 className="text-[100px] font-bold">{hour}</h1>
+      <div className="font-bold text-2xl ">
+        {h >= 0 && h <= 5 && "Boa Madrugada 🌑"}
+        {h > 5 && h < 12 && "Bom Dia 🌞"} 
+        {h >= 12 && h < 18 && "Boa Tarde 🌞"}
+        {h > 18 && h <= 23 && "Boa Noite 🌝"}
       </div>
-      <ul className="w-[400px] flex flex-col">{list(newArray)}</ul>
     </div>
   );
 };
