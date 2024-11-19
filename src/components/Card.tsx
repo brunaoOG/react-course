@@ -1,21 +1,28 @@
 import { ReactNode } from "react";
 
 type Props = {
-  children: ReactNode;
+  phrase: string;
+  author?: string;
 };
 
-export const Card = ({ children }: Props) => {
+export const Card = ({ phrase, author }: Props) => {
+  const code: ReactNode = (
+    <p className="text-sm text-right mr-[-25px]">- {author}</p>
+  );
+
+  const elseCode: ReactNode = (
+    <p className="text-sm text-right mr-[-25px]">- Autor Desconhecido</p>
+  );
+
   return (
     <div>
-      <div className="w-fit m-3 bg-black/50 italic font-bold py-2 px-3 rounded-md pr-10">
-        {children}
-      </div>
-      <div className="w-fit m-3 bg-gray-500/50 italic font-bold py-2 px-3 rounded-md pr-10">
-        {children}
-      </div>
-      <div className="w-fit m-3 bg-slate-700/50 italic font-bold py-2 px-3 rounded-md pr-10">
-        {children}
+      <div className="w-[400px] m-3 bg-black/50 italic font-bold py-2 px-3 rounded-md pr-10">
+        <h3>"{phrase}"</h3>
+        {author && code}
+        {!author && elseCode}
       </div>
     </div>
   );
 };
+
+
