@@ -1,11 +1,9 @@
-import { EmojiRating } from "../components/EmojiRating";
+import { Table } from "../components/Table";
 
 const Page = () => {
-  let rate = 0.0;
-
   return (
-    <div className="flex">
-      <EmojiRating rate={rate} />
+    <div className="w-[1200px] m-auto mt-5">
+      <Table />
     </div>
   );
 };
