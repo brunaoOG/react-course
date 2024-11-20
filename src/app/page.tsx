@@ -1,11 +1,10 @@
 import { EmojiRating } from "../components/EmojiRating";
 
 const Page = () => {
-  let rate = 3;
+  let rate = 0.0;
 
   return (
-    <div className="flex justify-center items-center gap-4 p-5 ">
-      <div className="text-3xl bg-black/40 rounded-lg p-6 ">{rate}.0</div>
+    <div className="flex">
       <EmojiRating rate={rate} />
     </div>
   );
