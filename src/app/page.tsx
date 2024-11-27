@@ -3,21 +3,32 @@
 import { useState } from "react";
 
 const Page = () => {
-  const [count, setCount] = useState<number>(0);
-
+  const [secretArea, setSecret] = useState(false);
   const handlerClick = () => {
-    setCount(count + 1);
+    setSecret(!secretArea);
   };
 
   return (
-    <div className="m-4 mt-32 flex">
-      <p className="py-5 px-7 bg-black/30 rounded-s-lg">{count}</p>
-      <button
-        className="py-5 px-7 bg-blue-500 rounded-e-lg cursor-pointer"
-        onClick={handlerClick}
-      >
-        +1
-      </button>
+    <div className="m-4 mt-32 flex gap-5 p-10 w-fit">
+      {!secretArea && (
+        <button
+          className="p-6 bg-red-500 rounded-lg cursor-pointer"
+          onClick={handlerClick}  
+        >
+          Mostrar área secreta 🚫
+        </button>
+      )}
+      {secretArea && (
+        <button
+          className="p-6 bg-green-500 rounded-lg cursor-pointer"
+          onClick={handlerClick}
+        >
+          Ocultar área secreta ✅
+        </button>
+      )}
+      {secretArea && (
+        <div className="p-6 bg-black rounded-md">Área secreta 🤫</div>
+      )}
     </div>
   );
 };
