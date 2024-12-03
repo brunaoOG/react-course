@@ -10,39 +10,60 @@ export const ToDoList = () => {
     if (itemInput.trim() == "") return;
     setList([
       ...list,
-      { label: itemInput, checked: false, isEditing: false, id: list.length },
+      {
+        label: itemInput,
+        checked: false,
+        isEditing: false,
+        id: list.length + 1,
+      },
     ]);
     setItemInput("");
   };
 
-  const deleteItem = (targetKey: number) => {
+  const deleteItem = (targetId: number) => {
     setList(
-      list.filter((item, key) => {
-        return key !== targetKey;
+      list.filter((item) => {
+        return item.id !== targetId;
       })
     );
   };
 
-  const toggleItem = (targetKey: number) => {
+  const toggleItem = (targetId: number) => {
     let newList = [...list];
-    newList[targetKey].checked = !newList[targetKey].checked;
+
+    for (let i in newList) {
+      if (newList[i].id == targetId) {
+        newList[i].checked = !newList[i].checked;
+      }
+    }
+    //newList[targetKey].checked = !newList[targetKey].checked;
     setList([...newList]);
   };
 
-  const sendEdit = (targetKey: number) => {
+  const sendEdit = (targetId: number) => {
     if (editingInput.trim() == "") return;
-    showEditingInput(targetKey); //Input de editar some
+    showEditingInput(targetId);
     let newList = [...list];
-    newList[targetKey].label = editingInput; //Item é alterado em array clone
-    setList(newList); //Array novo enviado
+    for (let i in newList) {
+      if (newList[i].id == targetId) {
+        newList[i].label = editingInput;
+      }
+    }
+    setList(newList); 
     setEditingInput("");
   };
 
-  const showEditingInput = (targetKey: number) => {
+  const showEditingInput = (targetId: number) => {
     let newList = [...list];
-    newList[targetKey].isEditing = !newList[targetKey].isEditing;
+    for (let i in newList) {
+      if (newList[i].id == targetId) {
+        newList[i].isEditing = !newList[i].isEditing;
+      }
+      if (list[i].id == targetId) {
+        setEditingInput(list[i].label);
+      }
+    }
     setList(newList);
-    setEditingInput(list[targetKey].label);
   };
 
   return (
@@ -76,19 +97,19 @@ export const ToDoList = () => {
       )}
 
       <ul className="list-disc px-5">
-        {list.map((item, index) => {
+        {list.map((item) => {
           return (
-            <li key={index} className="flex items-center gap-2 mb-2">
+            <li key={item.id} className="flex items-center gap-2 mb-2">
               <input
                 type="checkbox"
                 checked={item.checked}
                 className="size-3"
-                onChange={() => toggleItem(index)}
+                onChange={() => toggleItem(item.id)}
               />
 
               {!item.isEditing && item.label}
               {item.isEditing && (
-                <div key={index} className="flex">
+                <div key={item.id} className="flex">
                   <input
                     type="text"
                     className="z-10 outline-0 text-black w-[150px] rounded-s-md  bg-gray/50 px-1  text-sm border-2 border-blue-500"
@@ -99,7 +120,7 @@ export const ToDoList = () => {
                   <button
                     className="px-2 bg-blue-500 rounded-e-md  text-sm  font-bold"
                     onClick={() => {
-                      sendEdit(index);
+                      sendEdit(item.id);
                     }}
                   >
                     Enviar
@@ -111,7 +132,7 @@ export const ToDoList = () => {
                 <button
                   className="font-bold text-red-500"
                   onClick={() => {
-                    deleteItem(index);
+                    deleteItem(item.id);
                   }}
                 >
                   Deletar
@@ -119,7 +140,7 @@ export const ToDoList = () => {
                 <button
                   className="font-normal text-white/20"
                   onClick={() => {
-                    showEditingInput(index);
+                    showEditingInput(item.id);
                   }}
                 >
                   Editar
