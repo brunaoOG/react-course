@@ -1,58 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { questions } from "../data/questionsList";
 import { QuestionItem } from "../components/QuestionItem";
 import { Result } from "../components/Result";
 
 const Page = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const title = "Quiz dos Rappers";
+  const [firstName, setFirstName] = useState("Bruno");
+  const [lastName, setLastName] = useState("Silva");
+  const fullName = `${firstName} ${lastName}`;
+  // const [fullName, setFullName] = useState("");
 
-  const answerHandler = (answer: number) => {
-    setAnswers([...answers, answer]);
-    setCurrentQuestion(currentQuestion + 1);
-  };
-
-  const restartHandler = () => {
-    setAnswers([]);
-    setCurrentQuestion(0);
-  };
+  // useEffect(() => {
+  //   setFullName(firstName + " " + lastName);
+  // }, [firstName, lastName]);
 
   return (
-    <div className="h-screen w-screen bg-[#191919] flex justify-center items-center">
-      <div className="w-full max-w-xl bg-white rounded-lg shadow shadow-black/30 text-[#191919]">
-        <div className="p-6 font-bold text-2xl shadow shadow-gray-500/50">
-          {title}
-        </div>
-        <div id="optionsArea" className="p-6">
-          {questions[currentQuestion] && (
-            <QuestionItem
-              count={currentQuestion + 1}
-              question={questions[currentQuestion]}
-              onAnswer={answerHandler}
-            />
-          )}
-          {!questions[currentQuestion] && (
-            <Result questions={questions} answers={answers} />
-          )}
-        </div>
-        <div id="countArea">
-          <div className="p-6 text-center border-t border-gray-500/50 ">
-            {questions[currentQuestion] &&
-              `${currentQuestion + 1} de ${questions.length} pergunta${
-                questions.length === 1 ? "" : "s"
-              }`}
-            {!questions[currentQuestion] && (
-              <button
-                className="bg-[#191919] px-4 py-3 rounded-lg text-white font-bold hover:scale-105 transition-all hover:bg-green-600"
-                onClick={restartHandler}
-              >
-                Reiniciar Quiz
-              </button>
-            )}
-          </div>
+    <div className="">
+      <h1 className="shadow shadow-gray-500 py-10 pl-3 text-3xl italic font-bold">
+        "O meu nome é {fullName}.
+      </h1>
+
+      <div className="flex py-10 ml-3 gap-5">
+        <div className="flex flex-col gap-5 p-5 rounded border border-gray-500">
+          <button
+            className="py-2 px-3 bg-gray-500 rounded-lg text-lg font-bold"
+            onClick={() => setFirstName("João")}
+          >
+            Mudar para João
+          </button>
+          <button
+            className="py-2 px-3 bg-gray-500 rounded-lg text-lg font-bold"
+            onClick={() => setLastName("Barbosa")}
+          >
+            Mudar para Barbosa
+          </button>
         </div>
       </div>
     </div>
