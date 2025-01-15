@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import { PostsContext } from "../contexts/PostsContext";
+import { PostContext } from "../contexts/PostsContext";
 
 export const Footer = () => {
-  const postsLength = useContext(PostsContext)?.posts.length;
-
-  return <div>Publicações feitas hoje: {postsLength}</div>;
+  const postCtx = useContext(PostContext);
+  return <footer className=" text-sm self-center">Publicações feitas hoje: {postCtx?.posts.length}</footer>;
 };

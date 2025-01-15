@@ -1,10 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useEffect,
-  useReducer,
-} from "react";
+import { createContext, Dispatch, ReactNode, useReducer } from "react";
 import { Post } from "../types/Post";
 import { PostActions, postReducer } from "../../reducers/postReducer";
 
@@ -15,17 +9,8 @@ type PostContextType = {
 
 export const PostContext = createContext<PostContextType | null>(null);
 
-const STORAGE_KEY = "postContextData";
-
 export const PostProvider = ({ children }: { children: ReactNode }) => {
-  const [posts, dispatch] = useReducer(
-    postReducer,
-    JSON.parse(localStorage?.getItem(STORAGE_KEY) || "[]")
-  );
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-  }, [posts]);
+  const [posts, dispatch] = useReducer(postReducer, []);
 
   return (
     <PostContext.Provider value={{ posts, dispatch }}>
